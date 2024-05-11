@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:NotepadDesktop"
         mc:Ignorable="d"
-        Title="MainWindow" Height="720" Width="1280" MinWidth="800" MinHeight="500" >
+        WindowStartupLocation="CenterScreen"
+        Title="Notatnik" Height="720" Width="1280" MinWidth="800" MinHeight="500" >
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50" />
@@ -21,26 +22,32 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch" Background="#1e2124"/>
-
+            
             <ListView x:Name="notesList" Background="#424549" Foreground="White" FontSize="24" Cursor="" />
             <Grid Grid.Column="2">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="100" />
+                    <RowDefinition Height="60"/>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="100" />
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="0" Margin="20">
                     <TextBlock FontSize="45" HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap" Foreground="White">Lista zakupów</TextBlock>
                 </Grid>
-                <Grid Grid.Row="1" Margin="20">
+
+                <Grid Grid.Row="1" Margin="20,10,10,10">
+                    <TextBlock FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center" TextWrapping="Wrap" Foreground="White">Data przypomnienia: twoja stara</TextBlock>
+                </Grid>
+                
+                <Grid Grid.Row="2" Margin="20">
                     <ScrollViewer VerticalScrollBarVisibility="Auto">
                         <TextBlock x:Name="note" TextWrapping="Wrap" FontSize="18" Foreground="White" />
                     </ScrollViewer>
                     
                 </Grid>
-                <Grid Grid.Row="2" Margin="20">
+                <Grid Grid.Row="3" Margin="20">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <Button Width="160" FontWeight="Bold" FontSize="18" Foreground="#424549" Background="#ffca4f" Margin="5,10,5,0" Content="Edytuj notatkę" />
+                        <Button Width="160" FontWeight="Bold" FontSize="18" Foreground="#424549" Background="#ffca4f" Margin="5,10,5,0" Content="Edytuj notatkę" Click="Edit_Button_Click" />
                         <Button Width="160" FontWeight="Bold" FontSize="18" Foreground="#424549" Background="#ffca4f" Margin="5,10,5,0" Content="Eksportuj notatkę" />
                         <Button Width="160" FontWeight="Bold" FontSize="18" Foreground="#424549" Background="#ffca4f" Margin="5,10,5,0" Content="Zaszyfruj notatkę" />
                         <Button Width="160" FontWeight="Bold" FontSize="18" Foreground="#424549" Background="#ffca4f" Margin="5,10,5,0" Content="Usuń notatkę" />

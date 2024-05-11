@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using NotepadDesktop.views;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -11,9 +12,6 @@ using System.Windows.Shapes;
 
 namespace NotepadDesktop
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         public MainWindow()
@@ -23,7 +21,31 @@ namespace NotepadDesktop
             List<string> notes = new List<string>();
             notes.Add("Lista zakupów");
             notes.Add("Prace domowe");
+            notes.Add("test");
+            notes.Add("test");
+            notes.Add("test");
+            notes.Add("test");
+            notes.Add("test");
+            notes.Add("test");
+            notes.Add("test");
+            notes.Add("test");
+            notes.Add("test");
+            notes.Add("test");
+            notes.Add("test");
+            notes.Add("test");
+            notes.Add("test");
+            notes.Add("test");
+            notes.Add("test");
+            notes.Add("test");
+            notes.Add("test");
             notesList.ItemsSource = notes;
+        }
+
+        private void Edit_Button_Click(object sender, RoutedEventArgs e)
+        {
+            NoteEditor editor = new NoteEditor();
+            editor.Owner = this;
+            editor.ShowDialog();
         }
     }
 }
