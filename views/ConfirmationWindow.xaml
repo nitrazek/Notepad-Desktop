@@ -1,0 +1,25 @@
+﻿<Window x:Class="NotepadDesktop.views.ConfirmationWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:NotepadDesktop.views"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterOwner"
+        Closing="Window_Closing"
+        ResizeMode="NoResize"
+        ShowInTaskbar="False"
+        Title="Czy na pewno?" Height="200" Width="300">
+    <Grid Background="#36393e">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="60"/>
+        </Grid.RowDefinitions>
+        <TextBlock x:Name="confirmationText"/>
+ 
+        <DockPanel Grid.Row="1">
+            <Button HorizontalAlignment="Left" Width="100" FontWeight="Bold" FontSize="12" Foreground="#424549" Background="#ffca4f" Margin="10" Content="Anuluj" />
+            <Button HorizontalAlignment="Right" Width="100" FontWeight="Bold" FontSize="12" Foreground="#424549" Background="#ffca4f" Margin="10" Content="Potwierdź" />
+        </DockPanel>
+    </Grid>
+</Window>

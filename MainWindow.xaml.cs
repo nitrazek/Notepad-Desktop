@@ -38,6 +38,13 @@ namespace NotepadDesktop
             notes.Add("test");
             notes.Add("test");
             notes.Add("test");
+            notes.Add("test");
+            notes.Add("test");
+            notes.Add("test");
+            notes.Add("test");
+            notes.Add("test");
+            notes.Add("test");
+            notes.Add("test");
             notesList.ItemsSource = notes;
         }
 
@@ -46,6 +53,20 @@ namespace NotepadDesktop
             NoteEditor editor = new NoteEditor();
             editor.Owner = this;
             editor.ShowDialog();
+        }
+
+        private void Delete_Button_Click(object sender, RoutedEventArgs e)
+        {
+            ConfirmationWindow confirmationWindow = new ConfirmationWindow();
+            confirmationWindow.Owner = this;
+            confirmationWindow.ShowDialog();
+        }
+
+        private void Encrypt_Button_Click(object sender, RoutedEventArgs e)
+        {
+            PasswordWindow passwordWindow = new PasswordWindow();
+            passwordWindow.Owner = this;
+            passwordWindow.ShowDialog();
         }
     }
 }
