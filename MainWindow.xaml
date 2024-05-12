@@ -23,7 +23,26 @@
             </Grid.ColumnDefinitions>
             <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch" Background="#1e2124"/>
             
-            <ListView x:Name="notesList" Background="#424549" Foreground="White" FontSize="24" Cursor="" />
+            <Grid Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="60" />
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="60" />
+                </Grid.RowDefinitions>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="90"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBox Height="30" Margin="10,0" FontSize="18" VerticalContentAlignment="Center"/>
+                    <Button Grid.Column="1" Width="80" Height="30" Margin="0,0,10,0" FontWeight="Bold" FontSize="18" Foreground="#424549" Background="#ffca4f" Content="Szukaj" />
+                </Grid>
+                <ListView Grid.Row="1" x:Name="notesList" Background="#424549" Foreground="White" FontSize="24" Cursor="" />
+                
+            </Grid>
+
             <Grid Grid.Column="2">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="100" />
@@ -36,14 +55,13 @@
                 </Grid>
 
                 <Grid Grid.Row="1" Margin="20,10,10,10">
-                    <TextBlock FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center" TextWrapping="Wrap" Foreground="White">Data przypomnienia: twoja stara</TextBlock>
+                    <TextBlock FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center" TextWrapping="Wrap" Foreground="White">Data przypomnienia: 13.05.2024 16:00</TextBlock>
                 </Grid>
                 
                 <Grid Grid.Row="2" Margin="20">
                     <ScrollViewer VerticalScrollBarVisibility="Auto">
                         <TextBlock x:Name="note" TextWrapping="Wrap" FontSize="18" Foreground="White" />
                     </ScrollViewer>
-                    
                 </Grid>
                 <Grid Grid.Row="3" Margin="20">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">

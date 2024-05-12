@@ -15,19 +15,13 @@ using System.Windows.Shapes;
 namespace NotepadDesktop.views
 {
     /// <summary>
-    /// Logika interakcji dla klasy ConfirmationWindow.xaml
+    /// Logika interakcji dla klasy AdvancedSearch.xaml
     /// </summary>
-    public partial class ConfirmationWindow : Window
+    public partial class AdvancedSearch : Window
     {
-        public ConfirmationWindow()
+        public AdvancedSearch()
         {
             InitializeComponent();
-            confirmationText.Text="Czy na pewno chcesz usunąć notatkę?";
-        }
-
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-
         }
     }
 }

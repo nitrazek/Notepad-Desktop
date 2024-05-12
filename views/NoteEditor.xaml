@@ -32,7 +32,7 @@
             </Grid.RowDefinitions>
             <TextBox Background="#424549" Foreground="White" Grid.Row="0" Margin="10"></TextBox>
             <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
-                <TextBox Background="#424549" Foreground="White" Margin="10"></TextBox>
+                <TextBox Background="#424549" Foreground="White" Margin="10" AcceptsReturn="True"></TextBox>
             </ScrollViewer>
             <Button Grid.Row="2" Width="160" HorizontalAlignment="Right" FontWeight="Bold" FontSize="18" Foreground="#424549" Background="#ffca4f" Margin="5,0,10,10" Content="Zapisz" />
         </Grid>
