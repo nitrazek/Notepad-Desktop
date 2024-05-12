@@ -21,30 +21,7 @@ namespace NotepadDesktop
             List<string> notes = new List<string>();
             notes.Add("Lista zakupów");
             notes.Add("Prace domowe");
-            notes.Add("test");
-            notes.Add("test");
-            notes.Add("test");
-            notes.Add("test");
-            notes.Add("test");
-            notes.Add("test");
-            notes.Add("test");
-            notes.Add("test");
-            notes.Add("test");
-            notes.Add("test");
-            notes.Add("test");
-            notes.Add("test");
-            notes.Add("test");
-            notes.Add("test");
-            notes.Add("test");
-            notes.Add("test");
-            notes.Add("test");
-            notes.Add("test");
-            notes.Add("test");
-            notes.Add("test");
-            notes.Add("test");
-            notes.Add("test");
-            notes.Add("test");
-            notes.Add("test");
+            notes.AddRange(Enumerable.Repeat("test", 20));
             notesList.ItemsSource = notes;
         }
 
@@ -67,6 +44,18 @@ namespace NotepadDesktop
             PasswordWindow passwordWindow = new PasswordWindow();
             passwordWindow.Owner = this;
             passwordWindow.ShowDialog();
+        }
+
+        private void Filter_Button_Click(object sender, RoutedEventArgs e)
+        {
+            AdvancedSearch advancedSearch = new AdvancedSearch();
+            advancedSearch.Owner = this;
+            advancedSearch.ShowDialog();
+        }
+
+        private void Add_Button_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
