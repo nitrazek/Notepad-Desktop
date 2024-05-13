@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:local="clr-namespace:NotepadDesktop.views"
         mc:Ignorable="d"
         WindowStartupLocation="CenterOwner"
@@ -34,11 +35,11 @@
         <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Vertical" VerticalAlignment="Center">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <TextBlock Foreground="#ffca4f" FontSize="13" Margin="10" VerticalAlignment="Center">Od:</TextBlock>
-                <DatePicker Margin="10" Width="150" BorderThickness="0"/>
+                <xctk:DateTimePicker Margin="10" Width="240" Height="25" Background="#424549" Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <TextBlock Foreground="#ffca4f" FontSize="13" Margin="10" VerticalAlignment="Center">Do:</TextBlock>
-                <DatePicker Margin="10" Width="150" BorderThickness="0"/>
+                <xctk:DateTimePicker Margin="10" Width="240" Height="25" Background="#424549" Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
             </StackPanel>
         </StackPanel>
 
@@ -46,11 +47,11 @@
         <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Vertical" VerticalAlignment="Center">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <TextBlock Foreground="#ffca4f" FontSize="13" Margin="10" VerticalAlignment="Center">Od:</TextBlock>
-                <DatePicker Margin="10" Width="150" BorderThickness="0"/>
+                <xctk:DateTimePicker Margin="10" Width="240" Height="25" Background="#424549" Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <TextBlock Foreground="#ffca4f" FontSize="13" Margin="10" VerticalAlignment="Center">Do:</TextBlock>
-                <DatePicker Margin="10" Width="150" BorderThickness="0"/>
+                <xctk:DateTimePicker Margin="10" Width="240" Height="25" Background="#424549" Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
             </StackPanel>
         </StackPanel>
         <DockPanel Grid.Row="4" Grid.ColumnSpan="2" HorizontalAlignment="Center">
