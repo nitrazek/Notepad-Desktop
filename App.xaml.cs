@@ -1,14 +1,59 @@
-﻿using System.Configuration;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using NotepadDesktop.repositories;
+using NotepadDesktop.viewModels;
+using NotepadDesktop.views;
+using System.Configuration;
 using System.Data;
 using System.Windows;
 
 namespace NotepadDesktop
 {
-    /// <summary>
-    /// Interaction logic for App.xaml
-    /// </summary>
     public partial class App : Application
     {
+        private static IHost? AppHost { get; set; }
+
+        private IHost BuildAppHost()
+        {
+            var builder = Host.CreateDefaultBuilder();
+            builder.ConfigureServices((context, services) =>
+            {
+                //DbContext
+
+                //Views
+                services.AddSingleton<MainWindow>();
+                services.AddSingleton<AdvancedSearch>();
+                services.AddSingleton<ConfirmationWindow>();
+                services.AddSingleton<NoteEditor>();
+                services.AddSingleton<PasswordWindow>();
+                //ViewModels
+                services.AddSingleton<MainWindowViewModel>();
+                services.AddSingleton<NoteEditorViewModel>();
+                //Repositories
+                services.AddSingleton<NoteRepository>();
+            });
+            builder.UseDefaultServiceProvider(options => options.ValidateScopes = false);
+            return builder.Build();
+        }
+
+        public App()
+        {
+            AppHost = BuildAppHost();
+            MainWindow window = AppHost.Services.GetRequiredService<MainWindow>();
+            window.Show();
+        }
+
+        protected override async void OnStartup(StartupEventArgs e)
+        {
+            await AppHost!.StartAsync();
+            base.OnStartup(e);
+        }
+
+        protected override async void OnExit(ExitEventArgs e)
+        {
+            await AppHost!.StopAsync();
+            base.OnExit(e);
+        }
     }
 
 }
