@@ -11,17 +11,29 @@ using System.Threading.Tasks;
 
 namespace NotepadDesktop.viewModels
 {
-    public class MainWindowViewModel
+    public class MainWindowViewModel: INotifyPropertyChanged
     {
         private NoteRepository noteRepository;
-        private ObservableCollection<Note> notes;
+        private ObservableCollection<Note> _notes;
+        private Note? _currentNote;
+
+        public Note? CurrentNote
+        {
+            get { return _currentNote; }
+            set
+            {
+                _currentNote = value; 
+                OnPropertyChanged();
+            }
+        }
 
         public ObservableCollection<Note> Notes
         {
-            get { return notes; }
+            get { return _notes; }
             set
             {
-                notes = value;
+                _notes = value;
+                CurrentNote = null;
                 OnPropertyChanged();
             }
         }
@@ -29,10 +41,15 @@ namespace NotepadDesktop.viewModels
         public MainWindowViewModel(NoteRepository noteRepository) 
         {
             this.noteRepository = noteRepository;
-            notes = new ObservableCollection<Note>(noteRepository.GetAllNotes());
+            _notes = new ObservableCollection<Note>(noteRepository.GetAllNotes());
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        public void updateNotes()
+        {
+            Notes = new ObservableCollection<Note>(noteRepository.GetAllNotes());
+        }
+
+        public event PropertyChangedEventHandler? PropertyChanged;
 
         protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {

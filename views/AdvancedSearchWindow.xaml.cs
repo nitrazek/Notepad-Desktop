@@ -14,19 +14,17 @@ using System.Windows.Shapes;
 
 namespace NotepadDesktop.views
 {
-    /// <summary>
-    /// Logika interakcji dla klasy NoteEditor.xaml
-    /// </summary>
-    public partial class NoteEditor : Window
+    public partial class AdvancedSearchWindow : Window
     {
-        public NoteEditor()
+        public AdvancedSearchWindow()
         {
             InitializeComponent();
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-
+            e.Cancel = true;
+            Hide();
         }
     }
 }

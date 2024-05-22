@@ -9,7 +9,7 @@ namespace NotepadDesktop.repositories
 {
     public class NoteRepository
     {
-        List<Note> notes = new List<Note>() { new Note(title: "test", content: "dupa")};
+        List<Note> notes = new List<Note>() { new Note(title: "test", content: "dupa"), new Note(title: "123", content: "xd", notificationDate: new DateTime()) };
 
         public NoteRepository() { }
 

@@ -14,9 +14,6 @@ using System.Windows.Shapes;
 
 namespace NotepadDesktop.views
 {
-    /// <summary>
-    /// Logika interakcji dla klasy ConfirmationWindow.xaml
-    /// </summary>
     public partial class ConfirmationWindow : Window
     {
         public ConfirmationWindow()
@@ -27,7 +24,8 @@ namespace NotepadDesktop.views
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-
+            e.Cancel = true;
+            Hide();
         }
     }
 }

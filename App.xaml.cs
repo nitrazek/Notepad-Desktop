@@ -22,9 +22,9 @@ namespace NotepadDesktop
 
                 //Views
                 services.AddSingleton<MainWindow>();
-                services.AddSingleton<AdvancedSearch>();
+                services.AddSingleton<AdvancedSearchWindow>();
                 services.AddSingleton<ConfirmationWindow>();
-                services.AddSingleton<NoteEditor>();
+                services.AddSingleton<NoteEditorWindow>();
                 services.AddSingleton<PasswordWindow>();
                 //ViewModels
                 services.AddSingleton<MainWindowViewModel>();
