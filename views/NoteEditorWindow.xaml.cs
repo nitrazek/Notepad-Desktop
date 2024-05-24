@@ -48,7 +48,7 @@ namespace NotepadDesktop.views
             else if (viewModel.SelectedNote != null)
             {
                 ErrorMessage.Visibility = Visibility.Hidden;
-                viewModel.SaveNote(noteTitle.Text, noteContent.Text);
+                viewModel.SaveNote();
                 Hide();
             }
             else

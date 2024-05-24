@@ -27,8 +27,9 @@ namespace NotepadDesktop
                 services.AddSingleton<NoteEditorWindow>();
                 services.AddSingleton<PasswordWindow>();
                 //ViewModels
-                services.AddSingleton<MainWindowViewModel>();
+                services.AddSingleton<MainViewModel>();
                 services.AddSingleton<NoteEditorViewModel>();
+                services.AddSingleton<ConfirmationViewModel>();
                 //Repositories
                 services.AddSingleton<NoteRepository>();
             });

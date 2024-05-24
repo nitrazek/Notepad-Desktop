@@ -30,9 +30,9 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="60"/>
             </Grid.RowDefinitions>
-            <TextBox x:Name="noteTitle" Text="{Binding SelectedNote.Title, Mode=OneWay}" Background="#424549" Foreground="White" Grid.Row="0" Margin="10"></TextBox>
+            <TextBox x:Name="noteTitle" Text="{Binding SelectedNote.Title, Mode=TwoWay}" Background="#424549" Foreground="White" Grid.Row="0" Margin="10"></TextBox>
             <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
-                <TextBox x:Name="noteContent" Text="{Binding SelectedNote.Content, Mode=OneWay}" Background="#424549" Foreground="White" Margin="10" AcceptsReturn="True"></TextBox>
+                <TextBox x:Name="noteContent" Text="{Binding SelectedNote.Content, Mode=TwoWay}" Background="#424549" Foreground="White" Margin="10" AcceptsReturn="True"></TextBox>
             </ScrollViewer>
             <TextBlock x:Name="ErrorMessage" Text="Tytuł nie może być pusty" Grid.Row="2" Foreground="Red" FontWeight="Bold" FontSize="16" VerticalAlignment="Center" Margin="10,0,10,10" Visibility="Hidden"/>
             <Button Grid.Row="2" Width="160" HorizontalAlignment="Right" FontWeight="Bold" FontSize="18" Foreground="#424549" Background="#ffca4f" Margin="5,0,10,10" Content="Zapisz" Click="Save_Button_Click" />

@@ -3,19 +3,21 @@ using NotepadDesktop.viewModels;
 using NotepadDesktop.views;
 using System.ComponentModel;
 using System.Windows;
+using System.Windows.Data;
 
 namespace NotepadDesktop
 {
     public partial class MainWindow : Window
     {
-        private MainWindowViewModel viewModel;
+        private MainViewModel viewModel;
         
         private NoteEditorWindow noteEditorWindow;
         private ConfirmationWindow confirmationWindow;
         private PasswordWindow passwordWindow;
         private AdvancedSearchWindow advancedSearchWindow;
+        private ICollectionView collectionView;
 
-        public MainWindow(MainWindowViewModel mainWindowViewModel, NoteEditorWindow noteEditorWindow, ConfirmationWindow confirmationWindow, PasswordWindow passwordWindow, AdvancedSearchWindow advancedSearchWindow)
+        public MainWindow(MainViewModel mainWindowViewModel, NoteEditorWindow noteEditorWindow, ConfirmationWindow confirmationWindow, PasswordWindow passwordWindow, AdvancedSearchWindow advancedSearchWindow)
         {
             InitializeComponent();
             DataContext = mainWindowViewModel;
@@ -24,21 +26,25 @@ namespace NotepadDesktop
             this.confirmationWindow = confirmationWindow;
             this.passwordWindow = passwordWindow;
             this.advancedSearchWindow = advancedSearchWindow;
+            collectionView = CollectionViewSource.GetDefaultView(viewModel.Notes);
         }
 
         private void Edit_Button_Click(object sender, RoutedEventArgs e)
         {
             if (viewModel.CurrentNote == null) return;
             noteEditorWindow.Owner = this;
-            noteEditorWindow.NoteForViewModel = viewModel.CurrentNote;
+            noteEditorWindow.NoteForViewModel = new Note(viewModel.CurrentNote);
             noteEditorWindow.ShowDialog();
+            viewModel.updateNotes();
         }
 
         private void Delete_Button_Click(object sender, RoutedEventArgs e)
         {
             if (viewModel.CurrentNote == null) return;
             confirmationWindow.Owner = this;
+            confirmationWindow.NoteForViewModel = new Note(viewModel.CurrentNote);
             confirmationWindow.ShowDialog();
+            viewModel.updateNotes();
         }
 
         private void Encrypt_Button_Click(object sender, RoutedEventArgs e)
@@ -80,5 +86,19 @@ namespace NotepadDesktop
             base.OnClosing(e);
             Application.Current.Shutdown();
         }
+
+        private void FilterTextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+            collectionView.Filter = (item) =>
+            {
+                if (string.IsNullOrEmpty(FilterTextBox.Text))
+                    return true;
+
+                return ((Note)item).Title.IndexOf(FilterTextBox.Text, StringComparison.OrdinalIgnoreCase) >= 0;
+            };
+
+            collectionView.Refresh();
+        }
+
     }
 }

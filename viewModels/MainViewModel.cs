@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace NotepadDesktop.viewModels
 {
-    public class MainWindowViewModel: INotifyPropertyChanged
+    public class MainViewModel: INotifyPropertyChanged
     {
         private NoteRepository noteRepository;
         private ObservableCollection<Note> _notes;
@@ -38,7 +38,7 @@ namespace NotepadDesktop.viewModels
             }
         }
 
-        public MainWindowViewModel(NoteRepository noteRepository) 
+        public MainViewModel(NoteRepository noteRepository) 
         {
             this.noteRepository = noteRepository;
             _notes = new ObservableCollection<Note>(noteRepository.GetAllNotes());

@@ -23,7 +23,17 @@ namespace NotepadDesktop.models
         public DateTime CreatingDate { get { return creatingDate; } set { creatingDate = value; } }
         public DateTime? NotificationDate { get { return notificationDate; } set { notificationDate = value; } }
 
-        public Note(string title = "", string content = "", int password = 0, DateTime? notificationDate = null)
+        public Note()
+        { 
+            id = Guid.NewGuid();
+            title = string.Empty;
+            content = string.Empty;
+            password = 0;
+            notificationDate = null;
+            creatingDate = DateTime.Now;
+        }
+
+        public Note(string title, string content = "", int password = 0, DateTime? notificationDate = null)
         {
             id = Guid.NewGuid();
             this.title = title;

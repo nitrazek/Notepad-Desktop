@@ -7,19 +7,19 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Controls;
 
 namespace NotepadDesktop.viewModels
 {
-    public class NoteEditorViewModel: INotifyPropertyChanged
+    public class ConfirmationViewModel: INotifyPropertyChanged
     {
         private NoteRepository noteRepository;
-
         private Note? _selectedNote;
-
         public Note? SelectedNote
         {
-            get { return _selectedNote; }
+            get
+            {
+                return _selectedNote;
+            }
             set
             {
                 _selectedNote = value;
@@ -27,23 +27,14 @@ namespace NotepadDesktop.viewModels
             }
         }
 
-        public NoteEditorViewModel(NoteRepository noteRepository)
+        public ConfirmationViewModel(NoteRepository noteRepository)
         {
             this.noteRepository = noteRepository;
         }
 
-
-        public void SaveNote()
+        public void DeleteSelectedNote()
         {
-            noteRepository.UpdateNote(SelectedNote!);
-            SelectedNote = null;
-        }
-
-        public void CreateNote(string title, string content)
-        {
-            Note note = new Note(title: title, content: content);
-            noteRepository.AddNote(note);
-            SelectedNote = null;
+            noteRepository.DeleteNote(SelectedNote!);
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
