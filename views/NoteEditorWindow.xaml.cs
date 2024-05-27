@@ -36,6 +36,7 @@ namespace NotepadDesktop.views
         {
             viewModel.SelectedNote = null;
             e.Cancel = true;
+            ErrorMessage.Visibility = Visibility.Hidden;
             Hide();
         }
 
