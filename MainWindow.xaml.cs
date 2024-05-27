@@ -36,6 +36,7 @@ namespace NotepadDesktop
             noteEditorWindow.NoteForViewModel = new Note(viewModel.CurrentNote);
             noteEditorWindow.ShowDialog();
             viewModel.updateNotes();
+            collectionView = CollectionViewSource.GetDefaultView(viewModel.Notes);
         }
 
         private void Delete_Button_Click(object sender, RoutedEventArgs e)
@@ -45,6 +46,7 @@ namespace NotepadDesktop
             confirmationWindow.NoteForViewModel = new Note(viewModel.CurrentNote);
             confirmationWindow.ShowDialog();
             viewModel.updateNotes();
+            collectionView = CollectionViewSource.GetDefaultView(viewModel.Notes);
         }
 
         private void Encrypt_Button_Click(object sender, RoutedEventArgs e)
@@ -71,6 +73,7 @@ namespace NotepadDesktop
             noteEditorWindow.Owner = this;
             noteEditorWindow.ShowDialog();
             viewModel.updateNotes();
+            collectionView = CollectionViewSource.GetDefaultView(viewModel.Notes);
         }
 
         private void ListBox_Selected(object sender, RoutedEventArgs e)
