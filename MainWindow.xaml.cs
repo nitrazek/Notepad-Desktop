@@ -10,7 +10,7 @@ namespace NotepadDesktop
     public partial class MainWindow : Window
     {
         private MainViewModel viewModel;
-        
+
         private NoteEditorWindow noteEditorWindow;
         private ConfirmationWindow confirmationWindow;
         private PasswordWindow passwordWindow;
@@ -26,7 +26,7 @@ namespace NotepadDesktop
             this.confirmationWindow = confirmationWindow;
             this.passwordWindow = passwordWindow;
             this.advancedSearchWindow = advancedSearchWindow;
-            collectionView = CollectionViewSource.GetDefaultView(viewModel.Notes);
+            collectionView = CollectionViewSource.GetDefaultView(viewModel.Folders);
         }
 
         private void Edit_Button_Click(object sender, RoutedEventArgs e)
@@ -35,8 +35,8 @@ namespace NotepadDesktop
             noteEditorWindow.Owner = this;
             noteEditorWindow.NoteForViewModel = new Note(viewModel.CurrentNote);
             noteEditorWindow.ShowDialog();
-            viewModel.updateNotes();
-            collectionView = CollectionViewSource.GetDefaultView(viewModel.Notes);
+            viewModel.updateFolders();
+            collectionView = CollectionViewSource.GetDefaultView(viewModel.Folders);
         }
 
         private void Delete_Button_Click(object sender, RoutedEventArgs e)
@@ -45,8 +45,8 @@ namespace NotepadDesktop
             confirmationWindow.Owner = this;
             confirmationWindow.NoteForViewModel = new Note(viewModel.CurrentNote);
             confirmationWindow.ShowDialog();
-            viewModel.updateNotes();
-            collectionView = CollectionViewSource.GetDefaultView(viewModel.Notes);
+            viewModel.updateFolders();
+            collectionView = CollectionViewSource.GetDefaultView(viewModel.Folders);
         }
 
         private void Encrypt_Button_Click(object sender, RoutedEventArgs e)
@@ -59,7 +59,6 @@ namespace NotepadDesktop
         private void Export_Button_Click(object sender, RoutedEventArgs e)
         {
             if (viewModel.CurrentNote == null) return;
-
         }
 
         private void Filter_Button_Click(object sender, RoutedEventArgs e)
@@ -72,16 +71,17 @@ namespace NotepadDesktop
         {
             noteEditorWindow.Owner = this;
             noteEditorWindow.ShowDialog();
-            viewModel.updateNotes();
-            collectionView = CollectionViewSource.GetDefaultView(viewModel.Notes);
+            viewModel.updateFolders();
+            collectionView = CollectionViewSource.GetDefaultView(viewModel.Folders);
         }
 
-        private void ListBox_Selected(object sender, RoutedEventArgs e)
+        private void TreeView_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
-            if (NoteListBox.SelectedItem == null) return;
-
-            Note selectedNote = (Note)NoteListBox.SelectedItem;
-            viewModel.CurrentNote = selectedNote;
+            var selectedItem = e.NewValue as Note;
+            if (selectedItem != null)
+            {
+                viewModel.CurrentNote = selectedItem;
+            }
         }
 
         protected override void OnClosing(CancelEventArgs e)
@@ -97,11 +97,15 @@ namespace NotepadDesktop
                 if (string.IsNullOrEmpty(FilterTextBox.Text))
                     return true;
 
-                return ((Note)item).Title.IndexOf(FilterTextBox.Text, StringComparison.OrdinalIgnoreCase) >= 0;
+                var folder = item as Folder;
+                if (folder != null)
+                {
+                    return folder.Notes.Any(note => note.Title.IndexOf(FilterTextBox.Text, StringComparison.OrdinalIgnoreCase) >= 0);
+                }
+                return false;
             };
 
             collectionView.Refresh();
         }
-
     }
 }

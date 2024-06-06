@@ -13,8 +13,8 @@ namespace NotepadDesktop.viewModels
 {
     public class MainViewModel: INotifyPropertyChanged
     {
-        private NoteRepository noteRepository;
-        private ObservableCollection<Note> _notes;
+        private FolderRepository folderRepository;
+        private ObservableCollection<Folder> _folders;
         private Note? _currentNote;
 
         public Note? CurrentNote
@@ -27,26 +27,26 @@ namespace NotepadDesktop.viewModels
             }
         }
 
-        public ObservableCollection<Note> Notes
+        public ObservableCollection<Folder> Folders
         {
-            get { return _notes; }
+            get { return _folders; }
             set
             {
-                _notes = value;
+                _folders = value;
                 CurrentNote = null;
                 OnPropertyChanged();
             }
         }
 
-        public MainViewModel(NoteRepository noteRepository) 
+        public MainViewModel(FolderRepository folderRepository) 
         {
-            this.noteRepository = noteRepository;
-            _notes = new ObservableCollection<Note>(noteRepository.GetAllNotes());
+            this.folderRepository = folderRepository;
+            _folders = new ObservableCollection<Folder>(folderRepository.GetAllFolders());
         }
 
-        public void updateNotes()
+        public void updateFolders()
         {
-            Notes = new ObservableCollection<Note>(noteRepository.GetAllNotes());
+            Folders = new ObservableCollection<Folder>(folderRepository.GetAllFolders());
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

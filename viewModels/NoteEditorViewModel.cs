@@ -13,7 +13,7 @@ namespace NotepadDesktop.viewModels
 {
     public class NoteEditorViewModel: INotifyPropertyChanged
     {
-        private NoteRepository noteRepository;
+        private FolderRepository folderRepository;
 
         private Note? _selectedNote;
 
@@ -27,22 +27,22 @@ namespace NotepadDesktop.viewModels
             }
         }
 
-        public NoteEditorViewModel(NoteRepository noteRepository)
+        public NoteEditorViewModel(FolderRepository noteRepository)
         {
-            this.noteRepository = noteRepository;
+            this.folderRepository = noteRepository;
         }
 
 
         public void SaveNote()
         {
-            noteRepository.UpdateNote(SelectedNote!);
+            //folderRepository.UpdateNote(SelectedNote!);
             SelectedNote = null;
         }
 
         public void CreateNote(string title, string content)
         {
             Note note = new Note(title: title, content: content);
-            noteRepository.AddNote(note);
+            //folderRepository.AddNote(note);
             SelectedNote = null;
         }
 

@@ -12,6 +12,7 @@ namespace NotepadDesktop.models
         private Guid id;
         private string title;
         private string content;
+        private string folderName;
         private int password;
         private DateTime creatingDate;
         private DateTime? notificationDate;

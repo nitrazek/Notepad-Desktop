@@ -31,7 +31,7 @@ namespace NotepadDesktop
                 services.AddSingleton<NoteEditorViewModel>();
                 services.AddSingleton<ConfirmationViewModel>();
                 //Repositories
-                services.AddSingleton<NoteRepository>();
+                services.AddSingleton<FolderRepository>();
             });
             builder.UseDefaultServiceProvider(options => options.ValidateScopes = false);
             return builder.Build();
