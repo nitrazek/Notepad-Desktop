@@ -65,9 +65,13 @@ namespace NotepadDesktop.repositories
 
         public void SaveToJson()
         {
-            var options = new JsonSerializerOptions { WriteIndented = true };
-            string jsonString = JsonSerializer.Serialize(folders, options);
-            File.WriteAllText(DB_PATH, jsonString);
+            new Thread(() =>
+            {
+                var options = new JsonSerializerOptions { WriteIndented = true };
+                string jsonString = JsonSerializer.Serialize(folders, options);
+                File.WriteAllText(DB_PATH, jsonString);
+
+            }).Start();
         }
 
         public void ReadFromJson()

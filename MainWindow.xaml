@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Title="Notatnik" Height="720" Width="1280" MinWidth="800" MinHeight="500" >
+        Title="Notatnik" Height="720" Width="1280" MinWidth="800" MinHeight="500">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50" />
@@ -51,8 +51,15 @@
                     </TreeView.ItemTemplate>
                 </TreeView>
                 <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
-                    <Button Grid.Row="2" Width="150" FontWeight="Bold" FontSize="18" Foreground="#424549" Background="#ffca4f" Margin="10" Content="Dodaj notatkę" Click="Add_Button_Click" />
-                    <Button Grid.Row="2" Width="150" FontWeight="Bold" FontSize="18" Foreground="#424549" Background="#ffca4f" Margin="10" Content="Dodaj folder" Click="Add_Button_Click" />
+                    <Button Grid.Row="2" Width="105" FontWeight="Bold" FontSize="17" Foreground="#424549" Background="#ffca4f" Margin="5,10,5,10" Click="Add_Button_Click">
+                        <TextBlock Text="Dodaj notatkę" TextWrapping="Wrap" TextAlignment="Center"/>
+                    </Button>
+                    <Button Grid.Row="2" Width="105" FontWeight="Bold" FontSize="17" Foreground="#424549" Background="#ffca4f" Margin="5,10,5,10">
+                        <TextBlock Text="Dodaj  folder" TextWrapping="Wrap" TextAlignment="Center"/>
+                    </Button>
+                    <Button Grid.Row="2" Width="105" FontWeight="Bold" FontSize="17" Foreground="#424549" Background="#ffca4f" Margin="5,10,5,10">
+                        <TextBlock Text="Usuń   folder" TextWrapping="Wrap" TextAlignment="Center"/>
+                    </Button>
                 </StackPanel>
             </Grid>
 

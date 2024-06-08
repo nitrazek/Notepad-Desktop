@@ -69,6 +69,13 @@ namespace NotepadDesktop
 
         private void Add_Button_Click(object sender, RoutedEventArgs e)
         {
+            if (viewModel.Folders.Count == 0)
+            {
+                confirmationWindow.Owner = this;
+                confirmationWindow.NoteForViewModel = null;
+                confirmationWindow.ShowDialog();
+                return;
+            }
             noteEditorWindow.Owner = this;
             noteEditorWindow.ShowDialog();
             viewModel.updateFolders();

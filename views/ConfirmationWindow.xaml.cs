@@ -19,15 +19,30 @@ namespace NotepadDesktop.views
     public partial class ConfirmationWindow : Window
     {
         public ConfirmationViewModel viewModel;
-        public Note NoteForViewModel
+        public Note? NoteForViewModel
         {
-            set { viewModel.SelectedNote = value; }
+            set 
+            { 
+                viewModel.SelectedNote = value;
+                if (value == null)
+                {
+                    confirmationText.Text = "Nie można utworzyć notatki bez folderu!";
+                    cancelButton.Visibility = Visibility.Hidden;
+                    Title = "Brak folderu";
+                }
+                else
+                {
+                    confirmationText.Text = "Czy na pewno chcesz usunąć notatkę?";
+                    cancelButton.Visibility = Visibility.Visible;
+                    Title = "Czy na pewno?";
+                }
+            }
         }
+
         public ConfirmationWindow(ConfirmationViewModel viewModel)
         {
             InitializeComponent();
             this.viewModel = viewModel;
-            confirmationText.Text="Czy na pewno chcesz usunąć notatkę?";
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)

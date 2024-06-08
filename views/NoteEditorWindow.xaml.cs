@@ -55,7 +55,7 @@ namespace NotepadDesktop.views
             else
             {
                 ErrorMessage.Visibility = Visibility.Hidden;
-                viewModel.CreateNote(noteTitle.Text, noteContent.Text);
+                viewModel.CreateNote(noteTitle.Text, noteContent.Text, ((Folder)folderComboBox.SelectedItem).Id);
                 noteTitle.Text = string.Empty;
                 noteContent.Text = string.Empty;
                 Hide();

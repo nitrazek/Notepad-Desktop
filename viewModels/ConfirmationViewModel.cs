@@ -12,7 +12,7 @@ namespace NotepadDesktop.viewModels
 {
     public class ConfirmationViewModel: INotifyPropertyChanged
     {
-        private FolderRepository noteRepository;
+        private FolderRepository folderRepository;
         private Note? _selectedNote;
         public Note? SelectedNote
         {
@@ -29,12 +29,19 @@ namespace NotepadDesktop.viewModels
 
         public ConfirmationViewModel(FolderRepository noteRepository)
         {
-            this.noteRepository = noteRepository;
+            this.folderRepository = noteRepository;
         }
 
         public void DeleteSelectedNote()
         {
-            //noteRepository.DeleteNote(SelectedNote!);
+            if (SelectedNote == null) return;
+            Folder? folder = folderRepository.GetFolderByNoteId(SelectedNote!.Id);
+            if (folder == null) return;
+
+            int index = folder.Notes.FindIndex(x => x.Id == SelectedNote.Id);
+            if (index == -1) return;
+            folder.Notes.RemoveAt(index);
+            folderRepository.UpdateFolder(folder);
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
