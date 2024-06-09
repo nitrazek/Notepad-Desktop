@@ -13,14 +13,14 @@ namespace NotepadDesktop.models
         private string title;
         private string content;
         private string folderName;
-        private int password;
+        private int? password;
         private DateTime creatingDate;
         private DateTime? notificationDate;
 
         public Guid Id { get { return id; } }
         public string Title { get { return title; } set { title = value; } }
         public string Content { get { return content; } set { content = value; } }
-        public int Password { get { return password; } set { password = value; } }
+        public int? Password { get { return password; } set { password = value; } }
         public DateTime CreatingDate { get { return creatingDate; } set { creatingDate = value; } }
         public DateTime? NotificationDate { get { return notificationDate; } set { notificationDate = value; } }
 

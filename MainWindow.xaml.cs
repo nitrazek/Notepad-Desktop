@@ -4,6 +4,10 @@ using NotepadDesktop.views;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Data;
+using Microsoft.Win32;
+using MigraDoc.DocumentObjectModel;
+using MigraDoc.Rendering;
+using NotepadDesktop.utils;
 
 namespace NotepadDesktop
 {
@@ -53,12 +57,24 @@ namespace NotepadDesktop
         {
             if (viewModel.CurrentNote == null) return;
             passwordWindow.Owner = this;
+            passwordWindow.NoteForViewModel = new Note(viewModel.CurrentNote);
+            passwordWindow.SetModeToCheck = false;
             passwordWindow.ShowDialog();
         }
 
         private void Export_Button_Click(object sender, RoutedEventArgs e)
         {
             if (viewModel.CurrentNote == null) return;
+            SaveFileDialog saveFileDialog = new SaveFileDialog
+            {
+                Filter = "PDF file (*.pdf)|*.pdf",
+                FileName = viewModel.CurrentNote.Title + ".pdf"
+            };
+
+            if (saveFileDialog.ShowDialog() == true)
+            {
+                PdfExporter.ExportNoteToPdf(viewModel.CurrentNote, saveFileDialog.FileName);
+            }
         }
 
         private void Filter_Button_Click(object sender, RoutedEventArgs e)
@@ -85,11 +101,18 @@ namespace NotepadDesktop
         private void TreeView_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
             var selectedItem = e.NewValue as Note;
-            if (selectedItem != null)
+            if (selectedItem == null) return;
+            
+            if(selectedItem.Password != null)
             {
-                viewModel.CurrentNote = selectedItem;
+                passwordWindow.Owner = this;
+                passwordWindow.NoteForViewModel = selectedItem;
+                passwordWindow.SetModeToCheck = true;
+                passwordWindow.ShowDialog();
             }
-        }
+
+            viewModel.CurrentNote = selectedItem;
+          }
 
         protected override void OnClosing(CancelEventArgs e)
         {

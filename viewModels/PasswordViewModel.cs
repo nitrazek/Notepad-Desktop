@@ -10,11 +10,12 @@ using System.Threading.Tasks;
 
 namespace NotepadDesktop.viewModels
 {
-    public class ConfirmationViewModel: INotifyPropertyChanged
+    public class PasswordViewModel: INotifyPropertyChanged
     {
         private FolderRepository folderRepository;
         private Note? _selectedNote;
-        
+        private bool _checkMode;
+
         public Note? SelectedNote
         {
             get
@@ -28,21 +29,20 @@ namespace NotepadDesktop.viewModels
             }
         }
 
-        public ConfirmationViewModel(FolderRepository noteRepository)
+      
+        public PasswordViewModel(FolderRepository folderRepository)
         {
-            this.folderRepository = noteRepository;
+            this.folderRepository = folderRepository;
         }
 
-        public void DeleteSelectedNote()
+        public bool CheckPassword(string providedPassword)
         {
-            if (SelectedNote == null) return;
-            Folder? folder = folderRepository.GetFolderByNoteId(SelectedNote!.Id);
-            if (folder == null) return;
+            return true;
+        }
 
-            int index = folder.Notes.FindIndex(x => x.Id == SelectedNote.Id);
-            if (index == -1) return;
-            folder.Notes.RemoveAt(index);
-            folderRepository.UpdateFolder(folder);
+        public void SetPassword(string providedPassword)
+        {
+           // folderRepository
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

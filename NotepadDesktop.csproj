@@ -17,6 +17,8 @@
     <PackageReference Include="Extended.Wpf.Toolkit" Version="4.6.0" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
     <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="8.0.0" />
+    <PackageReference Include="PDFsharp" Version="6.1.0" />
+    <PackageReference Include="PDFsharp-MigraDoc-GDI" Version="6.1.0" />
   </ItemGroup>
 
 </Project>
