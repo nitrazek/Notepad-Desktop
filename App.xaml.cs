@@ -30,6 +30,7 @@ namespace NotepadDesktop
                 services.AddSingleton<MainViewModel>();
                 services.AddSingleton<NoteEditorViewModel>();
                 services.AddSingleton<ConfirmationViewModel>();
+                services.AddSingleton<PasswordViewModel>();
                 //Repositories
                 services.AddSingleton<FolderRepository>();
             });

@@ -42,7 +42,8 @@ namespace NotepadDesktop.viewModels
 
         public void SetPassword(string providedPassword)
         {
-           // folderRepository
+            folerRepository;
+            folerRepository.Get
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
