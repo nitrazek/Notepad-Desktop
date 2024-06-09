@@ -69,6 +69,8 @@ namespace NotepadDesktop.views
                 if (valid)
                 {
                     _postCheckMethod?.Invoke();
+                    Hide();
+                    passwordBox.Clear();
                 }
                 else
                 {
@@ -78,6 +80,9 @@ namespace NotepadDesktop.views
             else
             {
                 viewModel.SetPassword(int.Parse(passwordBox.Text));
+                _postCheckMethod?.Invoke();
+                Hide();
+                passwordBox.Clear();
             }
         }
 

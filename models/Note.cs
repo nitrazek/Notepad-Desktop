@@ -49,7 +49,8 @@ namespace NotepadDesktop.models
             title = oldNote.Title;
             content = oldNote.Content;
             password = oldNote.Password;
-            creatingDate = DateTime.Now;
+            creatingDate = oldNote.creatingDate;
+            notificationDate = oldNote.NotificationDate;
         }
     }
 }

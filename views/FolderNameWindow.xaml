@@ -18,10 +18,9 @@
         <StackPanel Orientation="Vertical" VerticalAlignment="Center">
             <TextBlock Foreground="White" FontSize="18" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10">Wprowadź nazwę folderu</TextBlock>
             <TextBox x:Name="nameBox" Height="25" FontSize="16" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Background="#424549" Foreground="White" Margin="10" />
+            <TextBlock x:Name="ErrorMessage" Text="Tytuł nie może być pusty" Grid.Row="2" Foreground="Red" FontWeight="Bold" FontSize="16" VerticalAlignment="Center" Margin="10,0,10,10" Visibility="Hidden"/>
         </StackPanel>
-        <DockPanel Grid.Row="1">
-            <Button HorizontalAlignment="Left" Width="100" FontWeight="Bold" FontSize="12" Foreground="#424549" Background="#ffca4f" Margin="10" Content="Anuluj" />
-            <Button HorizontalAlignment="Right" Width="100" FontWeight="Bold" FontSize="12" Foreground="#424549" Background="#ffca4f" Margin="10" Content="Potwierdź" />
-        </DockPanel>
+
+        <Button Grid.Row="1" Width="100" FontWeight="Bold" FontSize="12" Foreground="#424549" Background="#ffca4f" Margin="10" Content="Utwórz folder" Click="CreateFolder_Button_Click"/>
     </Grid>
 </Window>

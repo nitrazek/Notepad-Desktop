@@ -3,9 +3,12 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:utils="clr-namespace:NotepadDesktop.utils;assembly=NotepadDesktop"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         Title="Notatnik" Height="720" Width="1280" MinWidth="800" MinHeight="500">
+
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50" />
@@ -54,10 +57,10 @@
                     <Button Grid.Row="2" Width="105" FontWeight="Bold" FontSize="17" Foreground="#424549" Background="#ffca4f" Margin="5,10,5,10" Click="Add_Button_Click">
                         <TextBlock Text="Dodaj notatkę" TextWrapping="Wrap" TextAlignment="Center"/>
                     </Button>
-                    <Button Grid.Row="2" Width="105" FontWeight="Bold" FontSize="17" Foreground="#424549" Background="#ffca4f" Margin="5,10,5,10">
+                    <Button Grid.Row="2" Width="105" FontWeight="Bold" FontSize="17" Foreground="#424549" Background="#ffca4f" Margin="5,10,5,10" Click="AddFolder_Button_Click">
                         <TextBlock Text="Dodaj  folder" TextWrapping="Wrap" TextAlignment="Center"/>
                     </Button>
-                    <Button Grid.Row="2" Width="105" FontWeight="Bold" FontSize="17" Foreground="#424549" Background="#ffca4f" Margin="5,10,5,10">
+                    <Button Grid.Row="2" Width="105" FontWeight="Bold" FontSize="17" Foreground="#424549" Background="#ffca4f" Margin="5,10,5,10" Click="DeleteFolder_Button_Click">
                         <TextBlock Text="Usuń   folder" TextWrapping="Wrap" TextAlignment="Center"/>
                     </Button>
                 </StackPanel>
@@ -87,10 +90,11 @@
                 </Grid>
 
                 <Grid Grid.Row="1" Margin="20,10,10,10">
-                    <TextBlock FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center" TextWrapping="Wrap" Foreground="White" Text="{Binding CurrentNote.NotificationDate}">
+                    <TextBlock FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center" TextWrapping="Wrap" Foreground="White" Text="{Binding CurrentNote.NotificationDate, StringFormat='Data przypomnienia: {0:yyyy-MM-dd HH:mm:ss}'}">
                     </TextBlock>
                 </Grid>
-                
+
+
                 <Grid Grid.Row="2" Margin="20">
                     <ScrollViewer VerticalScrollBarVisibility="Auto">
                         <TextBlock Text="{Binding CurrentNote.Content}" TextWrapping="Wrap" FontSize="18" Foreground="White"/>

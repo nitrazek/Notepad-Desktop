@@ -26,11 +26,13 @@ namespace NotepadDesktop
                 services.AddSingleton<ConfirmationWindow>();
                 services.AddSingleton<NoteEditorWindow>();
                 services.AddSingleton<PasswordWindow>();
+                services.AddSingleton<FolderNameWindow>();
                 //ViewModels
                 services.AddSingleton<MainViewModel>();
                 services.AddSingleton<NoteEditorViewModel>();
                 services.AddSingleton<ConfirmationViewModel>();
                 services.AddSingleton<PasswordViewModel>();
+                services.AddSingleton<FolderNameViewModel>();
                 //Repositories
                 services.AddSingleton<FolderRepository>();
             });

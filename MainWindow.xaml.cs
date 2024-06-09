@@ -19,9 +19,10 @@ namespace NotepadDesktop
         private ConfirmationWindow confirmationWindow;
         private PasswordWindow passwordWindow;
         private AdvancedSearchWindow advancedSearchWindow;
+        private FolderNameWindow folderNameWindow;
         private ICollectionView collectionView;
 
-        public MainWindow(MainViewModel mainWindowViewModel, NoteEditorWindow noteEditorWindow, ConfirmationWindow confirmationWindow, PasswordWindow passwordWindow, AdvancedSearchWindow advancedSearchWindow)
+        public MainWindow(MainViewModel mainWindowViewModel, NoteEditorWindow noteEditorWindow, ConfirmationWindow confirmationWindow, PasswordWindow passwordWindow, FolderNameWindow folderNameWindow, AdvancedSearchWindow advancedSearchWindow)
         {
             InitializeComponent();
             DataContext = mainWindowViewModel;
@@ -29,6 +30,7 @@ namespace NotepadDesktop
             this.noteEditorWindow = noteEditorWindow;
             this.confirmationWindow = confirmationWindow;
             this.passwordWindow = passwordWindow;
+            this.folderNameWindow = folderNameWindow;
             this.advancedSearchWindow = advancedSearchWindow;
             collectionView = CollectionViewSource.GetDefaultView(viewModel.Folders);
         }
@@ -60,6 +62,8 @@ namespace NotepadDesktop
             passwordWindow.NoteForViewModel = new Note(viewModel.CurrentNote);
             passwordWindow.SetModeToCheck = false;
             passwordWindow.ShowDialog();
+            viewModel.updateFolders();
+            collectionView = CollectionViewSource.GetDefaultView(viewModel.Folders);
         }
 
         [Obsolete]
@@ -104,7 +108,11 @@ namespace NotepadDesktop
             var selectedItem = e.NewValue as Note;
             if (selectedItem == null) return;
 
-            if (selectedItem.Password == null) return;
+            if (selectedItem.Password == null)
+            {
+                viewModel.CurrentNote = selectedItem;
+                return;
+            }
                 
             passwordWindow.Owner = this;
             passwordWindow.NoteForViewModel = selectedItem;
@@ -124,20 +132,47 @@ namespace NotepadDesktop
 
         private void FilterTextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
         {
+            string filterText = FilterTextBox.Text.ToLower();
+            collectionView = CollectionViewSource.GetDefaultView(viewModel.Folders);
+
             collectionView.Filter = (item) =>
             {
-                if (string.IsNullOrEmpty(FilterTextBox.Text))
-                    return true;
-
                 var folder = item as Folder;
-                if (folder != null)
-                {
-                    return folder.Notes.Any(note => note.Title.IndexOf(FilterTextBox.Text, StringComparison.OrdinalIgnoreCase) >= 0);
-                }
-                return false;
+                if (folder == null) return false;
+
+                if (filterText.Length == 0) return true;
+
+                folder.Notes = folder.Notes
+                    .Where(note => note.Title.Contains(filterText, StringComparison.OrdinalIgnoreCase))
+                    .ToList();
+
+                return folder.Notes.Any();
             };
 
             collectionView.Refresh();
         }
+
+        private void AddFolder_Button_Click(object sender, RoutedEventArgs e)
+        {
+            folderNameWindow.Owner = this;
+            folderNameWindow.ShowDialog();
+            viewModel.updateFolders();
+            collectionView = CollectionViewSource.GetDefaultView(viewModel.Folders);
+        }
+
+        private void DeleteFolder_Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        /*
+         * TODO
+         * Ustawianie daty przypomnienia
+         * Wyszukiwanie po nazwie
+         * Dodać obsługę błędu w passwordWindow
+         * Brak możliwości dodania notatki do nowo stworzonego folderu (nie odświeża się lista)
+         * Wyszukiwnie zaawansowane + walidacje
+         * Usuwanie folderów
+        */
     }
 }

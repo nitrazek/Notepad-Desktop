@@ -22,7 +22,11 @@ namespace NotepadDesktop.views
         private NoteEditorViewModel viewModel;
         public Note NoteForViewModel
         {
-            set { viewModel.SelectedNote = value; }
+            set
+            { 
+                viewModel.SelectedNote = value;
+                viewModel.UpdateFolders();
+            }
         }
 
         public NoteEditorWindow(NoteEditorViewModel noteEditorViewModel)

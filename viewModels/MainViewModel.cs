@@ -29,7 +29,15 @@ namespace NotepadDesktop.viewModels
 
         public ObservableCollection<Folder> Folders
         {
-            get { return _folders; }
+            get
+            {
+                ObservableCollection<Folder> copy = new ObservableCollection<Folder>();
+                foreach (var folder in _folders)
+                {
+                    copy.Add(new Folder(folder));
+                }
+                return copy;
+            }
             set
             {
                 _folders = value;

@@ -2,6 +2,7 @@
 using NotepadDesktop.repositories;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -27,16 +28,20 @@ namespace NotepadDesktop.viewModels
             }
         }
 
-        public List<Folder> AllFolders
+        public ObservableCollection<Folder> Folders { get; set; }
+
+        public NoteEditorViewModel(FolderRepository folderRepository)
         {
-            get { return folderRepository.GetAllFolders(); }
+            this.folderRepository = folderRepository;
+            Folders = new ObservableCollection<Folder>(folderRepository.GetAllFolders());
         }
 
-        public NoteEditorViewModel(FolderRepository noteRepository)
+        public void UpdateFolders()
         {
-            this.folderRepository = noteRepository;
+            Folders.Clear();
+            folderRepository.GetAllFolders().ForEach(x => Folders.Add(x));
+            OnPropertyChanged();
         }
-
 
         public void SaveNote()
         {
