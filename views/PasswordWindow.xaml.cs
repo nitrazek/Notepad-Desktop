@@ -21,6 +21,7 @@ namespace NotepadDesktop.views
     {
         private PasswordViewModel viewModel;
         private bool _checkMode;
+        private Action? _postCheckMethod;
 
         public Note NoteForViewModel
         {
@@ -29,6 +30,10 @@ namespace NotepadDesktop.views
         public bool SetModeToCheck
         {
             set { _checkMode = value; }
+        }
+        public Action? SetPostCheckMethod
+        {
+            set { _postCheckMethod = value; }
         }
 
         public PasswordWindow(PasswordViewModel passwordViewModel)
@@ -41,6 +46,7 @@ namespace NotepadDesktop.views
         {
             e.Cancel = true;
             Hide();
+            passwordBox.Clear();
         }
 
         private void passwordBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
@@ -58,7 +64,20 @@ namespace NotepadDesktop.views
         {
             if (_checkMode)
             {
-
+                if (passwordBox.Text.Length == 0) return;
+                bool valid = viewModel.CheckPassword(int.Parse(passwordBox.Text));
+                if (valid)
+                {
+                    _postCheckMethod?.Invoke();
+                }
+                else
+                {
+                    //Error
+                }
+            }
+            else
+            {
+                viewModel.SetPassword(int.Parse(passwordBox.Text));
             }
         }
 

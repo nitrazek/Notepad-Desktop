@@ -12,7 +12,6 @@ namespace NotepadDesktop.models
         private Guid id;
         private string title;
         private string content;
-        private string folderName;
         private int? password;
         private DateTime creatingDate;
         private DateTime? notificationDate;
@@ -29,12 +28,12 @@ namespace NotepadDesktop.models
             id = Guid.NewGuid();
             title = string.Empty;
             content = string.Empty;
-            password = 0;
+            password = null;
             notificationDate = null;
             creatingDate = DateTime.Now;
         }
 
-        public Note(string title, string content = "", int password = 0, DateTime? notificationDate = null)
+        public Note(string title, string content = "", int? password = null, DateTime? notificationDate = null)
         {
             id = Guid.NewGuid();
             this.title = title;

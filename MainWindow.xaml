@@ -87,22 +87,7 @@
                 </Grid>
 
                 <Grid Grid.Row="1" Margin="20,10,10,10">
-                    <TextBlock FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center" TextWrapping="Wrap" Foreground="White">
-                        <TextBlock.Style>
-                            <Style TargetType="TextBlock">
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding CurrentNote.NotificationDate}" Value="">
-                                        <Setter Property="Text" Value="Data przypomnienia: {Binding CurrentNote.NotificationDate, StringFormat='dd.MM.yyyy HH:mm'}"/>
-                                    </DataTrigger>
-                                    <DataTrigger Binding="{Binding CurrentNote.NotificationDate}" Value="{x:Null}">
-                                        <Setter Property="Text" Value="Data przypomnienia: -"/>
-                                    </DataTrigger>
-                                    <DataTrigger Binding="{Binding CurrentNote}" Value="{x:Null}">
-                                        <Setter Property="Text" Value=""/>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </TextBlock.Style>
+                    <TextBlock FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center" TextWrapping="Wrap" Foreground="White" Text="{Binding CurrentNote.NotificationDate}">
                     </TextBlock>
                 </Grid>
                 

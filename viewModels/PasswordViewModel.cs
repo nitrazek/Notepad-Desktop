@@ -35,15 +35,25 @@ namespace NotepadDesktop.viewModels
             this.folderRepository = folderRepository;
         }
 
-        public bool CheckPassword(string providedPassword)
+        public bool CheckPassword(int providedPassword)
         {
-            return true;
+            Folder? folder = folderRepository.GetFolderByNoteId(SelectedNote.Id);
+            if (folder == null) return false;
+            int index = folder.Notes.FindIndex(x => x.Id == SelectedNote!.Id);
+            if (index < 0) return false;
+
+            return folder.Notes[index].Password == providedPassword;
         }
 
-        public void SetPassword(string providedPassword)
+        public void SetPassword(int providedPassword)
         {
-            folerRepository;
-            folerRepository.Get
+            Folder? folder = folderRepository.GetFolderByNoteId(SelectedNote.Id);
+            if (folder == null) return;
+            SelectedNote.Password = providedPassword;
+            int index = folder.Notes.FindIndex(x => x.Id == SelectedNote!.Id);
+            if (index < 0) return;
+            folder.Notes[index] = SelectedNote;
+            folderRepository.UpdateFolder(folder);
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

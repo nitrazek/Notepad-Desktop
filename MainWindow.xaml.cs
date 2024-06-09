@@ -62,6 +62,7 @@ namespace NotepadDesktop
             passwordWindow.ShowDialog();
         }
 
+        [Obsolete]
         private void Export_Button_Click(object sender, RoutedEventArgs e)
         {
             if (viewModel.CurrentNote == null) return;
@@ -102,16 +103,17 @@ namespace NotepadDesktop
         {
             var selectedItem = e.NewValue as Note;
             if (selectedItem == null) return;
-            
-            if(selectedItem.Password != null)
-            {
-                passwordWindow.Owner = this;
-                passwordWindow.NoteForViewModel = selectedItem;
-                passwordWindow.SetModeToCheck = true;
-                passwordWindow.ShowDialog();
-            }
 
-            viewModel.CurrentNote = selectedItem;
+            if (selectedItem.Password == null) return;
+                
+            passwordWindow.Owner = this;
+            passwordWindow.NoteForViewModel = selectedItem;
+            passwordWindow.SetModeToCheck = true;
+            passwordWindow.SetPostCheckMethod = () =>
+            {
+                viewModel.CurrentNote = selectedItem;
+            };
+            passwordWindow.ShowDialog();
           }
 
         protected override void OnClosing(CancelEventArgs e)
