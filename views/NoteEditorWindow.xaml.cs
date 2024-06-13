@@ -20,7 +20,7 @@ namespace NotepadDesktop.views
     {
 
         private NoteEditorViewModel viewModel;
-        public Note NoteForViewModel
+        public Note? NoteForViewModel
         {
             set
             { 

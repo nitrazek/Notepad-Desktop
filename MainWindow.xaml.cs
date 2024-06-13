@@ -98,6 +98,7 @@ namespace NotepadDesktop
                 return;
             }
             noteEditorWindow.Owner = this;
+            noteEditorWindow.NoteForViewModel = null;
             noteEditorWindow.ShowDialog();
             viewModel.updateFolders();
             collectionView = CollectionViewSource.GetDefaultView(viewModel.Folders);
@@ -170,7 +171,6 @@ namespace NotepadDesktop
          * Ustawianie daty przypomnienia
          * Wyszukiwanie po nazwie
          * Dodać obsługę błędu w passwordWindow
-         * Brak możliwości dodania notatki do nowo stworzonego folderu (nie odświeża się lista)
          * Wyszukiwnie zaawansowane + walidacje
          * Usuwanie folderów
         */
