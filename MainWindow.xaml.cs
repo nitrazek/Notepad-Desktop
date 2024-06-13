@@ -20,7 +20,6 @@ namespace NotepadDesktop
         private PasswordWindow passwordWindow;
         private AdvancedSearchWindow advancedSearchWindow;
         private FolderNameWindow folderNameWindow;
-        private ICollectionView collectionView;
 
         public MainWindow(MainViewModel mainWindowViewModel, NoteEditorWindow noteEditorWindow, ConfirmationWindow confirmationWindow, PasswordWindow passwordWindow, FolderNameWindow folderNameWindow, AdvancedSearchWindow advancedSearchWindow)
         {
@@ -32,7 +31,6 @@ namespace NotepadDesktop
             this.passwordWindow = passwordWindow;
             this.folderNameWindow = folderNameWindow;
             this.advancedSearchWindow = advancedSearchWindow;
-            collectionView = CollectionViewSource.GetDefaultView(viewModel.Folders);
         }
 
         private void Edit_Button_Click(object sender, RoutedEventArgs e)
@@ -42,7 +40,7 @@ namespace NotepadDesktop
             noteEditorWindow.NoteForViewModel = new Note(viewModel.CurrentNote);
             noteEditorWindow.ShowDialog();
             viewModel.updateFolders();
-            collectionView = CollectionViewSource.GetDefaultView(viewModel.Folders);
+            FilterTextBox.Clear();
         }
 
         private void Delete_Button_Click(object sender, RoutedEventArgs e)
@@ -52,7 +50,7 @@ namespace NotepadDesktop
             confirmationWindow.NoteForViewModel = new Note(viewModel.CurrentNote);
             confirmationWindow.ShowDialog();
             viewModel.updateFolders();
-            collectionView = CollectionViewSource.GetDefaultView(viewModel.Folders);
+            FilterTextBox.Clear();
         }
 
         private void Encrypt_Button_Click(object sender, RoutedEventArgs e)
@@ -63,7 +61,7 @@ namespace NotepadDesktop
             passwordWindow.SetModeToCheck = false;
             passwordWindow.ShowDialog();
             viewModel.updateFolders();
-            collectionView = CollectionViewSource.GetDefaultView(viewModel.Folders);
+            FilterTextBox.Clear();
         }
 
         [Obsolete]
@@ -101,7 +99,7 @@ namespace NotepadDesktop
             noteEditorWindow.NoteForViewModel = null;
             noteEditorWindow.ShowDialog();
             viewModel.updateFolders();
-            collectionView = CollectionViewSource.GetDefaultView(viewModel.Folders);
+            FilterTextBox.Clear();
         }
 
         private void TreeView_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
@@ -134,23 +132,20 @@ namespace NotepadDesktop
         private void FilterTextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
         {
             string filterText = FilterTextBox.Text.ToLower();
-            collectionView = CollectionViewSource.GetDefaultView(viewModel.Folders);
 
-            collectionView.Filter = (item) =>
+            List<Folder> folders = viewModel.Folders;
+            foreach (var folder in folders)
             {
-                var folder = item as Folder;
-                if (folder == null) return false;
+                if (folder == null) continue;
 
-                if (filterText.Length == 0) return true;
+                if (filterText.Length == 0) continue;
 
                 folder.Notes = folder.Notes
                     .Where(note => note.Title.Contains(filterText, StringComparison.OrdinalIgnoreCase))
                     .ToList();
+            }
 
-                return folder.Notes.Any();
-            };
-
-            collectionView.Refresh();
+            viewModel.TreeList = folders.Where(folder => folder.Notes.Count > 0).ToList();
         }
 
         private void AddFolder_Button_Click(object sender, RoutedEventArgs e)
@@ -158,7 +153,7 @@ namespace NotepadDesktop
             folderNameWindow.Owner = this;
             folderNameWindow.ShowDialog();
             viewModel.updateFolders();
-            collectionView = CollectionViewSource.GetDefaultView(viewModel.Folders);
+            FilterTextBox.Clear();
         }
 
         private void DeleteFolder_Button_Click(object sender, RoutedEventArgs e)

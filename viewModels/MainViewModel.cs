@@ -8,13 +8,15 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Data;
 
 namespace NotepadDesktop.viewModels
 {
     public class MainViewModel: INotifyPropertyChanged
     {
         private FolderRepository folderRepository;
-        private ObservableCollection<Folder> _folders;
+        private List<Folder> _folders;
+        private List<Folder> _treeList;
         private Note? _currentNote;
 
         public Note? CurrentNote
@@ -27,11 +29,11 @@ namespace NotepadDesktop.viewModels
             }
         }
 
-        public ObservableCollection<Folder> Folders
+        public List<Folder> Folders
         {
             get
             {
-                ObservableCollection<Folder> copy = new ObservableCollection<Folder>();
+                List<Folder> copy = new List<Folder>();
                 foreach (var folder in _folders)
                 {
                     copy.Add(new Folder(folder));
@@ -41,20 +43,28 @@ namespace NotepadDesktop.viewModels
             set
             {
                 _folders = value;
+                _treeList = value;
                 CurrentNote = null;
                 OnPropertyChanged();
             }
         }
 
+        public List<Folder> TreeList
+        {
+            get { return _treeList; }
+            set { _treeList = value; OnPropertyChanged(); }
+        }
+
         public MainViewModel(FolderRepository folderRepository) 
         {
             this.folderRepository = folderRepository;
-            _folders = new ObservableCollection<Folder>(folderRepository.GetAllFolders());
+            _folders = folderRepository.GetAllFolders();
+            _treeList = _folders;
         }
 
         public void updateFolders()
         {
-            Folders = new ObservableCollection<Folder>(folderRepository.GetAllFolders());
+            Folders = folderRepository.GetAllFolders();
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

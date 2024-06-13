@@ -41,7 +41,7 @@
                     <TextBox Name="FilterTextBox" Background="#424549" Foreground="White" Height="30" Margin="10,0" FontSize="18" VerticalContentAlignment="Center" TextChanged="FilterTextBox_TextChanged"/>
                     <Button Grid.Column="1" Width="80" Height="30" Margin="0,0,10,0" FontWeight="Bold" FontSize="15" Foreground="#424549" Background="#ffca4f" Content="Filtruj" Click="Filter_Button_Click"/>
                 </Grid>
-                <TreeView x:Name="NoteTreeView" Grid.Row="1" ItemsSource="{Binding Folders}" Background="#424549" Foreground="White" FontSize="22" Cursor="" SelectedItemChanged="TreeView_SelectedItemChanged">
+                <TreeView x:Name="NoteTreeView" Grid.Row="1" ItemsSource="{Binding TreeList}" Background="#424549" Foreground="White" FontSize="22" Cursor="" SelectedItemChanged="TreeView_SelectedItemChanged">
                     <TreeView.ItemTemplate>
                         <HierarchicalDataTemplate ItemsSource="{Binding Notes}">
                             <TextBlock Text="{Binding Name}" Foreground="White" />
