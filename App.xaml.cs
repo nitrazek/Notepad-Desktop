@@ -34,6 +34,7 @@ namespace NotepadDesktop
                 services.AddSingleton<ConfirmationViewModel>();
                 services.AddSingleton<PasswordViewModel>();
                 services.AddSingleton<FolderNameViewModel>();
+                services.AddSingleton<AdvancedSearchViewModel>();
                 //Repositories
                 services.AddSingleton<FolderRepository>();
                 //Utils

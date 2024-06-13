@@ -177,10 +177,5 @@ namespace NotepadDesktop
             viewModel.updateFolders();
             FilterTextBox.Clear();
         }
-
-        /*
-         * TODO
-         * Wyszukiwanie zaawansowane
-        */
     }
 }

@@ -54,7 +54,7 @@ namespace NotepadDesktop.views
                 ErrorMessage.Visibility = Visibility.Visible;
                 ErrorFolder.Visibility = Visibility.Hidden;
             }
-            else if(notificationDateTimePicker.Value == null || DateTime.Now.CompareTo(notificationDateTimePicker.Value.Value) >= 0)
+            else if(notificationDateTimePicker.Value != null && DateTime.Now.CompareTo(notificationDateTimePicker.Value.Value) >= 0)
             {
                 ErrorMessage.Visibility = Visibility.Hidden;
                 ErrorDate.Visibility = Visibility.Visible;

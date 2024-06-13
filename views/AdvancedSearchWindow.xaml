@@ -17,6 +17,7 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="90"/>
             <RowDefinition Height="90"/>
+            <RowDefinition Height="30"/>
             <RowDefinition Height="60"/>
         </Grid.RowDefinitions>
         
@@ -26,20 +27,20 @@
         </Grid.ColumnDefinitions>
 
         <TextBlock Foreground="#ffca4f" Margin="10" FontSize="13">Tytuł:</TextBlock>
-        <TextBox Grid.Column="1" Background="#424549" Foreground="White" Margin="10"></TextBox>
+        <TextBox x:Name="name" Grid.Column="1" Background="#424549" Foreground="White" Margin="10"></TextBox>
 
         <TextBlock Grid.Row="1" Foreground="#ffca4f" Margin="10" FontSize="13">Treść:</TextBlock>
-        <TextBox Grid.Row="1" Grid.Column="1" Background="#424549" Foreground="White" Margin="10" AcceptsReturn="True"></TextBox>
+        <TextBox x:Name="content" Grid.Row="1" Grid.Column="1" Background="#424549" Foreground="White" Margin="10" AcceptsReturn="True"></TextBox>
 
         <TextBlock Grid.Row="2" Foreground="#ffca4f" Margin="10" FontSize="13">Data utworzenia:</TextBlock>
         <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Vertical" VerticalAlignment="Center">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <TextBlock Foreground="#ffca4f" FontSize="13" Margin="10" VerticalAlignment="Center">Od:</TextBlock>
-                <xctk:DateTimePicker Margin="10" Width="240" Height="25" Background="#424549" Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                <xctk:DateTimePicker x:Name="fromCreatingDTP" Margin="10" Width="240" Height="25" Background="#424549" Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <TextBlock Foreground="#ffca4f" FontSize="13" Margin="10" VerticalAlignment="Center">Do:</TextBlock>
-                <xctk:DateTimePicker Margin="10" Width="240" Height="25" Background="#424549" Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                <xctk:DateTimePicker x:Name="toCreatingDTP" Margin="10" Width="240" Height="25" Background="#424549" Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
             </StackPanel>
         </StackPanel>
 
@@ -47,17 +48,18 @@
         <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Vertical" VerticalAlignment="Center">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <TextBlock Foreground="#ffca4f" FontSize="13" Margin="10" VerticalAlignment="Center">Od:</TextBlock>
-                <xctk:DateTimePicker Margin="10" Width="240" Height="25" Background="#424549" Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                <xctk:DateTimePicker x:Name="fromNotificationDTP" Margin="10" Width="240" Height="25" Background="#424549" Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <TextBlock Foreground="#ffca4f" FontSize="13" Margin="10" VerticalAlignment="Center">Do:</TextBlock>
-                <xctk:DateTimePicker Margin="10" Width="240" Height="25" Background="#424549" Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                <xctk:DateTimePicker x:Name="toNotificationDTP" Margin="10" Width="240" Height="25" Background="#424549" Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
             </StackPanel>
         </StackPanel>
-        <DockPanel Grid.Row="4" Grid.ColumnSpan="2" HorizontalAlignment="Center">
-            <Button Width="130" FontWeight="Bold" FontSize="16" Foreground="#424549" Background="#ffca4f" Margin="40,10,50,10" Content="Anuluj" />
-            <Button Width="130" FontWeight="Bold" FontSize="16" Foreground="#424549" Background="#ffca4f" Margin="10" Content="Wyczyść filtry" />
-            <Button Width="130" FontWeight="Bold" FontSize="16" Foreground="#424549" Background="#ffca4f" Margin="50,10,40,10" Content="Szukaj" />
+        <TextBlock x:Name="ErrorMessage" Grid.Row="4"  Grid.ColumnSpan="2" Foreground="Red" TextAlignment="Center" FontWeight="Bold" FontSize="14" VerticalAlignment="Top" Margin="10,5,10,0" Visibility="Hidden" />
+        <DockPanel Grid.Row="5" Grid.ColumnSpan="2" HorizontalAlignment="Center">
+            <Button Width="130" FontWeight="Bold" FontSize="16" Foreground="#424549" Background="#ffca4f" Margin="40,10,50,10" Content="Anuluj" Click="CancelButton_Click"/>
+            <Button Width="130" FontWeight="Bold" FontSize="16" Foreground="#424549" Background="#ffca4f" Margin="10" Content="Wyczyść filtry" Click="ClearFilers_Button_Click" />
+            <Button Width="130" FontWeight="Bold" FontSize="16" Foreground="#424549" Background="#ffca4f" Margin="50,10,40,10" Content="Szukaj" Click="Search_Button_Click" />
         </DockPanel>
     </Grid>
 </Window>

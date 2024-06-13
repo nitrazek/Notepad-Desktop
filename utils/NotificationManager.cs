@@ -23,25 +23,20 @@ namespace NotepadDesktop.utils
         {
             if (scheduledTime == null) return;
 
-            var timeToWait = (int)(scheduledTime - DateTime.Now).Value.TotalMilliseconds;
-            if (timeToWait <= 0)
-            {
+            var timeToWait = (scheduledTime - DateTime.Now).Value.TotalMilliseconds;
+            if (timeToWait <= 0 || timeToWait > int.MaxValue)
                 return;
-                //ShowNotification(content);
-            }
-            else
+
+            if (timers.ContainsKey(noteId)) timers[noteId].Dispose();
+
+            timers[noteId] = new Timer((state) =>
             {
-                if (timers.ContainsKey(noteId)) timers[noteId].Dispose();
+                if (timers.ContainsKey(noteId)) timers.Remove(noteId);
 
-                timers[noteId] = new Timer((state) =>
-                {
-                    if (timers.ContainsKey(noteId)) timers.Remove(noteId);
-
-                    Note? note = folderRepository.GetNoteById(noteId);
-                    if (note != null && note.NotificationDate != null && note.NotificationDate.Value.CompareTo(scheduledTime) == 0)
-                        ShowNotification(title, content);
-                }, null, timeToWait, Timeout.Infinite);
-            }
+                Note? note = folderRepository.GetNoteById(noteId);
+                if (note != null && note.NotificationDate != null && note.NotificationDate.Value.CompareTo(scheduledTime) == 0)
+                    ShowNotification(title, content);
+            }, null, (int)timeToWait, Timeout.Infinite);
         }
 
         private void ShowNotification(string title, string content)
