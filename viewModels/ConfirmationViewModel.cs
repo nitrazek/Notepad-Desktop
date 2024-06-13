@@ -14,6 +14,7 @@ namespace NotepadDesktop.viewModels
     {
         private FolderRepository folderRepository;
         private Note? _selectedNote;
+        private Folder? _selectedFolder;
         
         public Note? SelectedNote
         {
@@ -28,6 +29,19 @@ namespace NotepadDesktop.viewModels
             }
         }
 
+        public Folder? SelectedFolder
+        {
+            get
+            {
+                return _selectedFolder;
+            }
+            set
+            {
+                _selectedFolder = value;
+                OnPropertyChanged();
+            }
+        }
+
         public ConfirmationViewModel(FolderRepository noteRepository)
         {
             this.folderRepository = noteRepository;
@@ -35,7 +49,6 @@ namespace NotepadDesktop.viewModels
 
         public void DeleteSelectedNote()
         {
-            if (SelectedNote == null) return;
             Folder? folder = folderRepository.GetFolderByNoteId(SelectedNote!.Id);
             if (folder == null) return;
 
@@ -43,6 +56,11 @@ namespace NotepadDesktop.viewModels
             if (index == -1) return;
             folder.Notes.RemoveAt(index);
             folderRepository.UpdateFolder(folder);
+        }
+
+        public void DeleteSelectedFolder()
+        {
+            folderRepository.DeleteFolder(SelectedFolder!);
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

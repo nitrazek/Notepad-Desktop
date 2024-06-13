@@ -1,5 +1,6 @@
 ﻿using NotepadDesktop.models;
 using NotepadDesktop.repositories;
+using NotepadDesktop.utils;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -18,6 +19,7 @@ namespace NotepadDesktop.viewModels
         private List<Folder> _folders;
         private List<Folder> _treeList;
         private Note? _currentNote;
+        private Folder? _currentFolder;
 
         public Note? CurrentNote
         {
@@ -29,6 +31,16 @@ namespace NotepadDesktop.viewModels
             }
         }
 
+        public Folder? CurrentFolder
+        {
+            get { return _currentFolder; }
+            set
+            {
+                _currentFolder = value;
+                OnPropertyChanged();
+            }
+
+        }
         public List<Folder> Folders
         {
             get
@@ -43,8 +55,24 @@ namespace NotepadDesktop.viewModels
             set
             {
                 _folders = value;
-                _treeList = value;
-                CurrentNote = null;
+                TreeList = value;
+                if (CurrentNote != null)
+                {
+                    bool exist = false;
+                    foreach (var folder in value)
+                    {
+                        foreach (var note in folder.Notes)
+                        {
+                            if (note.Id == CurrentNote.Id)
+                            {
+                                exist = true;
+                                break;
+                            }
+                        }
+                        if (exist) break;
+                    }
+                    if (exist) CurrentNote = null;
+                }
                 OnPropertyChanged();
             }
         }
@@ -55,16 +83,39 @@ namespace NotepadDesktop.viewModels
             set { _treeList = value; OnPropertyChanged(); }
         }
 
-        public MainViewModel(FolderRepository folderRepository) 
+        public MainViewModel(FolderRepository folderRepository, NotificationManager notificationManager) 
         {
             this.folderRepository = folderRepository;
             _folders = folderRepository.GetAllFolders();
             _treeList = _folders;
+            foreach (Folder folder in _folders)
+            {
+                foreach (Note note in folder.Notes)
+                {
+                    notificationManager.ScheduleNotification(note.NotificationDate, note.Title, note.Content, note.Id);
+                }
+            }
         }
 
         public void updateFolders()
         {
-            Folders = folderRepository.GetAllFolders();
+            if(CurrentNote != null)
+            {
+                Guid id = CurrentNote.Id;
+                Folders = folderRepository.GetAllFolders();
+                foreach(var folder in Folders)
+                {
+                    foreach(var note in folder.Notes)
+                    {
+                        if (note.Id == id)
+                            CurrentNote = note;
+                    }
+                }
+            }
+            else
+            {
+                Folders = folderRepository.GetAllFolders();
+            }
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

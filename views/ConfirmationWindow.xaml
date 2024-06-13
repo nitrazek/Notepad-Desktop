@@ -16,7 +16,6 @@
             <RowDefinition Height="60"/>
         </Grid.RowDefinitions>
         <TextBlock Foreground="White" FontSize="18" TextWrapping="Wrap" x:Name="confirmationText" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-
         <DockPanel Grid.Row="1">
             <Button x:Name="cancelButton" HorizontalAlignment="Left" Width="100" FontWeight="Bold" FontSize="16" Foreground="#424549" Background="#ffca4f" Margin="10" Content="Anuluj" Click="Cancel_Button_Click" />
             <Button x:Name="confirmButton" HorizontalAlignment="Right" Width="100" FontWeight="Bold" FontSize="16" Foreground="#424549" Background="#ffca4f" Margin="10" Content="Potwierdź" Click="Confirm_Button_Click" />

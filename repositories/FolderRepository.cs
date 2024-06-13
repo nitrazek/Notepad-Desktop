@@ -12,8 +12,8 @@ namespace NotepadDesktop.repositories
     public class FolderRepository
     {
         private string DB_PATH = $"{AppDomain.CurrentDomain.BaseDirectory}/DB.json";
-        List<Folder> folders = new List<Folder>() { new Folder("dupa", new List<Note>() { new Note("title", "123")}), new Folder("druga dupa", new List<Note>() { new Note("twoja", "stara") }) };
-
+        private List<Folder> folders = new List<Folder>();
+        private Task? savingTask = null;
 
         public FolderRepository()
         {
@@ -40,6 +40,20 @@ namespace NotepadDesktop.repositories
             return folder;
         }
 
+        public Note? GetNoteById(Guid noteId)
+        {
+            for (int i = 0; i < folders.Count; i++)
+            {
+                Folder folder = folders[i];
+                for (int j = 0; j < folder.Notes.Count; j++)
+                {
+                    Note note = folder.Notes[j];
+                    if(note.Id == noteId) return note;
+                }
+            }
+            return null;
+        }
+
         public List<Folder> GetAllFolders()
         {
             return folders.Select(folder => new Folder(folder)).ToList();
@@ -63,15 +77,19 @@ namespace NotepadDesktop.repositories
             SaveToJson();
         }
 
-        public void SaveToJson()
+        public async Task SaveToJson()
         {
-            new Thread(() =>
+            if (savingTask != null)
+            {
+                await savingTask;
+            }
+
+            savingTask = Task.Run(() =>
             {
                 var options = new JsonSerializerOptions { WriteIndented = true };
                 string jsonString = JsonSerializer.Serialize(folders, options);
                 File.WriteAllText(DB_PATH, jsonString);
-
-            }).Start();
+            });
         }
 
         public void ReadFromJson()

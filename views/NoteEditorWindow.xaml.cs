@@ -18,7 +18,6 @@ namespace NotepadDesktop.views
 {
     public partial class NoteEditorWindow : Window
     {
-
         private NoteEditorViewModel viewModel;
         public Note? NoteForViewModel
         {
@@ -28,6 +27,7 @@ namespace NotepadDesktop.views
                 viewModel.UpdateFolders();
             }
         }
+
 
         public NoteEditorWindow(NoteEditorViewModel noteEditorViewModel)
         {
@@ -41,6 +41,8 @@ namespace NotepadDesktop.views
             viewModel.SelectedNote = null;
             e.Cancel = true;
             ErrorMessage.Visibility = Visibility.Hidden;
+            ErrorDate.Visibility = Visibility.Hidden;
+            ErrorFolder.Visibility = Visibility.Hidden;
             Hide();
         }
 
@@ -48,18 +50,36 @@ namespace NotepadDesktop.views
         {
             if(noteTitle.Text.Length <= 0)
             {
+                ErrorDate.Visibility = Visibility.Hidden;
                 ErrorMessage.Visibility = Visibility.Visible;
+                ErrorFolder.Visibility = Visibility.Hidden;
+            }
+            else if(notificationDateTimePicker.Value == null || DateTime.Now.CompareTo(notificationDateTimePicker.Value.Value) >= 0)
+            {
+                ErrorMessage.Visibility = Visibility.Hidden;
+                ErrorDate.Visibility = Visibility.Visible;
+                ErrorFolder.Visibility = Visibility.Hidden;
+            }
+            else if (folderComboBox.SelectedItem == null)
+            {
+                ErrorDate.Visibility= Visibility.Hidden;
+                ErrorMessage.Visibility = Visibility.Hidden;
+                ErrorFolder.Visibility = Visibility.Visible;
             }
             else if (viewModel.SelectedNote != null)
             {
                 ErrorMessage.Visibility = Visibility.Hidden;
-                viewModel.SaveNote();
+                ErrorDate.Visibility= Visibility.Hidden;
+                ErrorFolder.Visibility = Visibility.Hidden;
+                viewModel.SaveNote(((Folder)folderComboBox.SelectedItem).Id);
                 Hide();
             }
             else
             {
                 ErrorMessage.Visibility = Visibility.Hidden;
-                viewModel.CreateNote(noteTitle.Text, noteContent.Text, ((Folder)folderComboBox.SelectedItem).Id);
+                ErrorDate.Visibility= Visibility.Hidden;
+                ErrorFolder.Visibility = Visibility.Hidden;
+                viewModel.CreateNote(noteTitle.Text, noteContent.Text, notificationDateTimePicker.Value, ((Folder)folderComboBox.SelectedItem).Id);
                 noteTitle.Text = string.Empty;
                 noteContent.Text = string.Empty;
                 Hide();

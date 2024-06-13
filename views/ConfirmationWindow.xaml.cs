@@ -22,7 +22,8 @@ namespace NotepadDesktop.views
         public Note? NoteForViewModel
         {
             set 
-            { 
+            {
+                viewModel.SelectedFolder = null;
                 viewModel.SelectedNote = value;
                 if (value == null)
                 {
@@ -35,6 +36,30 @@ namespace NotepadDesktop.views
                     confirmationText.Text = "Czy na pewno chcesz usunąć notatkę?";
                     cancelButton.Visibility = Visibility.Visible;
                     Title = "Czy na pewno?";
+                }
+            }
+        }
+
+        public Folder? FolderForViewModel
+        {
+            set
+            {
+                viewModel.SelectedNote = null;
+                viewModel.SelectedFolder = value;
+                if (value != null)
+                {
+                    if (value.Notes.Count > 0)
+                    {
+                        confirmationText.Text = "Nie możesz usunąć niepustego folderu!";
+                        cancelButton.Visibility = Visibility.Hidden;
+                        Title = "Folder nie jest pusty";
+                    }
+                    else
+                    {
+                        confirmationText.Text = "Czy na pewno chcesz usunąć folder?";
+                        cancelButton.Visibility = Visibility.Visible;
+                        Title = "Czy na pewno?";
+                    }
                 }
             }
         }
@@ -58,7 +83,14 @@ namespace NotepadDesktop.views
 
         private void Confirm_Button_Click(object sender, RoutedEventArgs e)
         {
-            viewModel.DeleteSelectedNote();
+            if (viewModel.SelectedFolder != null)
+            {
+                if (viewModel.SelectedFolder.Notes.Count <= 0)
+                    viewModel.DeleteSelectedFolder();
+            }
+            else if (viewModel.SelectedNote != null)
+                viewModel.DeleteSelectedNote();
+
             Hide();
         }
     }

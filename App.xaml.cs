@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using NotepadDesktop.repositories;
+using NotepadDesktop.utils;
 using NotepadDesktop.viewModels;
 using NotepadDesktop.views;
 using System.Configuration;
@@ -35,6 +36,8 @@ namespace NotepadDesktop
                 services.AddSingleton<FolderNameViewModel>();
                 //Repositories
                 services.AddSingleton<FolderRepository>();
+                //Utils
+                services.AddSingleton<NotificationManager>();
             });
             builder.UseDefaultServiceProvider(options => options.ValidateScopes = false);
             return builder.Build();

@@ -15,9 +15,6 @@ using System.Windows.Shapes;
 
 namespace NotepadDesktop.views
 {
-    /// <summary>
-    /// Logika interakcji dla klasy FolderNameWindow.xaml
-    /// </summary>
     public partial class FolderNameWindow : Window
     {
         private FolderNameViewModel viewModel;

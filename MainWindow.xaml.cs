@@ -104,23 +104,35 @@ namespace NotepadDesktop
 
         private void TreeView_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
-            var selectedItem = e.NewValue as Note;
-            if (selectedItem == null) return;
+            if (e.NewValue is Note)
+            {
+                var selectedItem = e.NewValue as Note;
+                if (selectedItem == null) return;
+                viewModel.CurrentFolder = null;
 
-            if (selectedItem.Password == null)
-            {
-                viewModel.CurrentNote = selectedItem;
-                return;
+                if (selectedItem.Password == null)
+                {
+                    viewModel.CurrentNote = selectedItem;
+                    return;
+                }
+
+                passwordWindow.Owner = this;
+                passwordWindow.NoteForViewModel = selectedItem;
+                passwordWindow.SetModeToCheck = true;
+                passwordWindow.SetPostCheckMethod = () =>
+                {
+                    viewModel.CurrentNote = selectedItem;
+                };
+                passwordWindow.ShowDialog();
             }
-                
-            passwordWindow.Owner = this;
-            passwordWindow.NoteForViewModel = selectedItem;
-            passwordWindow.SetModeToCheck = true;
-            passwordWindow.SetPostCheckMethod = () =>
+            else if(e.NewValue is Folder)
             {
-                viewModel.CurrentNote = selectedItem;
-            };
-            passwordWindow.ShowDialog();
+                var selectedItem = e.NewValue as Folder;
+                if (selectedItem == null) return;
+                viewModel.CurrentNote = null;
+
+                viewModel.CurrentFolder = selectedItem;
+            }
           }
 
         protected override void OnClosing(CancelEventArgs e)
@@ -158,16 +170,17 @@ namespace NotepadDesktop
 
         private void DeleteFolder_Button_Click(object sender, RoutedEventArgs e)
         {
-
+            if (viewModel.CurrentFolder == null) return;
+            confirmationWindow.Owner = this;
+            confirmationWindow.FolderForViewModel = new Folder(viewModel.CurrentFolder);
+            confirmationWindow.ShowDialog();
+            viewModel.updateFolders();
+            FilterTextBox.Clear();
         }
 
         /*
          * TODO
-         * Ustawianie daty przypomnienia
-         * Wyszukiwanie po nazwie
-         * Dodać obsługę błędu w passwordWindow
-         * Wyszukiwnie zaawansowane + walidacje
-         * Usuwanie folderów
+         * Wyszukiwanie zaawansowane
         */
     }
 }

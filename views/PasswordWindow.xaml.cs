@@ -64,31 +64,44 @@ namespace NotepadDesktop.views
         {
             if (_checkMode)
             {
-                if (passwordBox.Text.Length == 0) return;
+                if (passwordBox.Text.Length == 0)
+                {
+                    ErrorMessage.Visibility = Visibility.Visible;
+                    return;
+                }
                 bool valid = viewModel.CheckPassword(int.Parse(passwordBox.Text));
                 if (valid)
                 {
+                    ErrorMessage.Visibility = Visibility.Hidden;
                     _postCheckMethod?.Invoke();
                     Hide();
                     passwordBox.Clear();
                 }
                 else
                 {
-                    //Error
+                    ErrorMessage.Visibility = Visibility.Visible;
                 }
             }
             else
             {
-                viewModel.SetPassword(int.Parse(passwordBox.Text));
-                _postCheckMethod?.Invoke();
-                Hide();
-                passwordBox.Clear();
+                if (passwordBox.Text.Length == 0)
+                {
+                    ErrorMessage.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    ErrorMessage.Visibility = Visibility.Hidden;
+                    viewModel.SetPassword(int.Parse(passwordBox.Text));
+                    _postCheckMethod?.Invoke();
+                    Hide();
+                    passwordBox.Clear();
+                }
             }
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
-
+            Hide();
         }
     }
 }
